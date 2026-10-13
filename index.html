@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica Hipotética - UNIFESP SJC</title>
+  <!-- Tailwind CSS v4 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-between selection:bg-[#a8e063] selection:text-gray-900">
+
+  <!-- TOP BAR -->
+  <header class="w-full px-6 py-4 flex items-center justify-between border-b border-gray-100 bg-white shadow-xs">
+    <div class="flex items-center space-x-2">
+      <span class="text-xs font-medium tracking-wider text-gray-500 uppercase">UNIFESP • Campus São José dos Campos</span>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <div class="text-right hidden sm:block">
+        <p class="text-xs font-semibold text-gray-700 leading-tight">UNIFESP</p>
+      </div>
+      <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-[#a8e063]/40" style="background-color: #f4fbf0;">
+        <svg viewBox="0 0 100 100" class="w-7 h-7" fill="#409449" xmlns="http://www.w3.org/2000/svg" title="UNIFESP SJC Logo">
+          <polygon points="50,12 92,34 8,34" />
+          <rect x="20" y="40" width="8" height="42" />
+          <rect x="38" y="40" width="8" height="42" />
+          <rect x="54" y="40" width="8" height="42" />
+          <rect x="72" y="40" width="8" height="42" />
+          <rect x="12" y="82" width="76" height="4" />
+          <rect x="16" y="86" width="68" height="4" />
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ROUTED CONTAINER -->
+  <main class="flex-1 flex items-center justify-center p-6">
+
+    <!-- VIEW 1: WELCOME PAGE -->
+    <section id="view-welcome" class="w-full max-w-xl text-center transition-all duration-300">
+      <div class="mb-12">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
+          Clínica<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#7bb830] to-[#96d148]">Hipotética</span>
+        </h1>
+        <p class="mt-3 text-sm text-gray-500 font-medium">Sistema de Gestão e Manutenção de Equipamentos Biomédicos</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+        <button onclick="navigateTo('manutencao')" 
+          class="w-full sm:w-1/2 h-16 px-6 bg-[#96d148] hover:bg-[#86bd3e] text-gray-900 font-semibold text-sm rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center text-center cursor-pointer active:scale-98">
+          Solicitar manutenção
+        </button>
+        
+        <button onclick="navigateTo('ficha')" 
+          class="w-full sm:w-1/2 h-16 px-6 bg-white hover:bg-gray-50 text-gray-800 border-2 border-gray-200 hover:border-gray-300 font-semibold text-sm rounded-2xl shadow-xs hover:shadow-sm transition-all duration-200 flex items-center justify-center text-center cursor-pointer active:scale-98">
+          Acessar ficha do equipamento
+        </button>
+      </div>
+    </section>
+
+    <!-- VIEW 2: SOLICITAR MANUTENÇÃO -->
+    <section id="view-manutencao" class="w-full max-w-3xl bg-white rounded-3xl shadow-sm border border-gray-100 p-8 hidden transition-all duration-300">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-xl font-bold text-gray-900">Manutenção de Equipamento</h2>
+          <p class="text-xs text-gray-500">Ordem de serviço vinculada à ficha do equipamento selecionado</p>
+        </div>
+        <button onclick="navigateTo('welcome')" class="text-xs font-medium text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer">
+          ← Voltar
+        </button>
+      </div>
+
+      <form onsubmit="handleMaintenanceSubmit(event)" class="space-y-6 max-h-[72vh] overflow-y-auto pr-2">
+        
+        <!-- Bloco 1: Identificação do Equipamento (Travado) -->
+        <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#96d148]"></span> Identificação do Equipamento
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Código do Equipamento</label>
+              <input type="text" readonly value="SV-CA0119" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Equipamento</label>
+              <input type="text" readonly value="Cardioversor / Desfibrilador" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Fabricante</label>
+              <input type="text" readonly value="Instramed Ltda." class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Modelo</label>
+              <input type="text" readonly value="CardioMax – Lite Padrão" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Nº de Série</label>
+              <input type="text" readonly value="CMX19-000473" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Nº de Identificação Patrimonial</label>
+            <input type="text" readonly value="PAT-UNIFESP-8829" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+          </div>
+        </div>
+
+        <!-- Bloco 2: Tipo de Serviço Solicitado e Falha -->
+        <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#96d148]"></span> Classificação do Serviço
+          </h3>
+
+          <div>
+            <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-2">Serviço solicitado:</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-xs font-medium">
+              <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300">
+                <input type="checkbox" name="servico" value="MC" class="accent-[#86bd3e] w-4 h-4 shrink-0"> 
+                <span class="truncate">MC <span class="text-[10px] text-gray-400 block sm:inline">(Corretiva)</span></span>
+              </label>
+              <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300">
+                <input type="checkbox" name="servico" value="MP" class="accent-[#86bd3e] w-4 h-4 shrink-0"> 
+                <span class="truncate">MP <span class="text-[10px] text-gray-400 block sm:inline">(Preventiva)</span></span>
+              </label>
+              <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300">
+                <input type="checkbox" name="servico" value="Instalação" class="accent-[#86bd3e] w-4 h-4 shrink-0"> <span class="truncate">Instalação</span>
+              </label>
+              <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300">
+                <input type="checkbox" name="servico" value="Treinamento" class="accent-[#86bd3e] w-4 h-4 shrink-0"> <span class="truncate">Treinamento</span>
+              </label>
+              <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300 col-span-2 sm:col-span-1">
+                <input type="checkbox" name="servico" value="Calibração" class="accent-[#86bd3e] w-4 h-4 shrink-0"> <span class="truncate">Calibração</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1.5">Falha apresentada:</label>
+              <div class="flex items-center gap-6 bg-white px-4 py-3 rounded-xl border border-gray-200 text-xs font-medium">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="falha_local" value="equipamento" class="accent-[#86bd3e]" checked> No equipamento
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="falha_local" value="acessorio" class="accent-[#86bd3e]"> No acessório
+                </label>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Acessórios acompanhantes</label>
+              <input type="text" placeholder="Ex: Cabos ECG, pás, cabo de força" class="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#96d148] transition-all">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Falha Apresentada / Serviço solicitado (Descrição detalhada)</label>
+            <textarea rows="3" required placeholder="Descreva detalhadamente o defeito observado ou o serviço necessário..." class="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#96d148] transition-all"></textarea>
+          </div>
+        </div>
+
+        <!-- Bloco 3: Localização e Solicitante -->
+        <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100 space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#96d148]"></span> Departamento e Solicitante
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Serviço / Departamento</label>
+              <input type="text" readonly value="Suporte e Monitoramento Vital" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Local / Sala específica</label>
+              <input type="text" readonly value="Laboratório Central - SJC" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Funcionário solicitante</label>
+              <input type="text" readonly value="(Usuario)" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Telefone / Ramal</label>
+              <input type="text" readonly value="12 9 1234-5678/42" class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Grau de necessidade</label>
+              <select id="select-prioridade" class="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#96d148] transition-all">
+                <option value="Normal">Normal</option>
+                <option value="Urgente">Urgente</option>
+                <option value="Crítica">Crítica (Parado)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Data (Acesso)</label>
+              <input type="date" id="input-data" readonly class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-600 mb-1">Hora (Acesso)</label>
+              <input type="time" id="input-hora" readonly class="w-full px-3.5 py-2.5 bg-gray-100 text-gray-600 border border-gray-200 rounded-xl text-sm font-medium cursor-not-allowed focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full h-14 bg-[#96d148] hover:bg-[#86bd3e] text-gray-900 font-semibold text-sm rounded-xl shadow-sm transition-all duration-200 flex items-center justify-center cursor-pointer">
+          Enviar Solicitação de Manutenção
+        </button>
+      </form>
+    </section>
+
+    <!-- VIEW 3: ACESSAR FICHA DO EQUIPAMENTO -->
+    <section id="view-ficha" class="w-full max-w-3xl bg-white rounded-3xl shadow-sm border border-gray-100 p-8 hidden transition-all duration-300">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-bold px-2 py-0.5 bg-[#f4fbf0] text-[#7bb830] border border-[#a8e063]/40 rounded-md">SV-CA0119</span>
+            <!-- Visor de Status Dinâmico -->
+            <span id="equipamento-status-badge" class="text-xs font-semibold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-md">Funciona satisfatoriamente</span>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mt-1">Cardioversor / Desfibrilador</h2>
+          <p class="text-xs text-gray-400">CardioMax – config. Lite Padrão</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="navigateTo('welcome')" class="text-xs font-medium text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer">
+            ← Voltar
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-6 max-h-[70vh] overflow-y-auto pr-1">
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#96d148]"></span> Identificação
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div>
+              <span class="text-gray-400 text-xs block">Fabricante</span>
+              <strong class="text-gray-800 font-medium text-xs">Instramed Indústria Médico Hospitalar Ltda. – Palhoça/SC, Brasil</strong>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs block">Número de Série</span>
+              <strong class="text-gray-800 font-medium">CMX19-000473</strong>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs block">Valor de Aquisição Atualizado</span>
+              <strong class="text-gray-800 font-medium">R$ 21.084,00</strong>
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs block">Valor Atual Depreciado</span>
+              <strong class="text-gray-800 font-medium">R$ 6.325,20</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#96d148]"></span> Histórico e Operação
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+            <div class="bg-white p-3 rounded-xl border border-gray-100">
+              <span class="text-gray-400 text-[11px] block">Reparos (últimos 6m)</span>
+              <strong class="text-gray-800 text-base font-bold">0</strong>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100">
+              <span class="text-gray-400 text-[11px] block">Idade</span>
+              <strong class="text-gray-800 text-base font-bold">7 anos</strong>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100">
+              <span class="text-gray-400 text-[11px] block">Uso Semanal</span>
+              <strong class="text-gray-800 text-base font-bold">3 intervenções</strong>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100">
+              <span class="text-gray-400 text-[11px] block">Operadores Curso</span>
+              <strong class="text-gray-800 text-base font-bold">8 / 12</strong>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="showModal('Histórico Completo de Manutenção', 'Nenhum registro de reparo corretivo nos últimos 6 meses (0 ocorrências). O equipamento segue rotinas preventivas internas na UNIFESP SJC.', '📋')" class="w-full h-14 bg-white hover:bg-gray-50 text-gray-800 border-2 border-gray-200 hover:border-gray-300 font-semibold text-sm rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer">
+          <span>📅</span> Histórico Completo de Manutenção
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div id="app-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden z-50 transition-opacity">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-xl border border-gray-100 text-center space-y-4">
+      <div id="modal-icon" class="w-12 h-12 bg-[#f4fbf0] text-[#86bd3e] rounded-full flex items-center justify-center mx-auto text-xl font-bold border border-[#a8e063]/30">✓</div>
+      <h3 id="modal-title" class="text-lg font-bold text-gray-900">Sucesso</h3>
+      <p id="modal-message" class="text-sm text-gray-600">Ação realizada com sucesso.</p>
+      <button onclick="closeModal()" class="w-full h-12 bg-[#96d148] hover:bg-[#86bd3e] text-gray-900 font-semibold text-sm rounded-xl transition-all cursor-pointer">
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="w-full py-4 text-center text-xs text-gray-400 border-t border-gray-100 bg-white">
+    Clínica Hipotética • Universidade Federal de São Paulo (UNIFESP)
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Estado do equipamento: 'ok' | 'observacao' | 'fora_de_ordem'
+    let statusEquipamento = 'ok';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+
+      const dataInput = document.getElementById('input-data');
+      const horaInput = document.getElementById('input-hora');
+
+      if (dataInput) dataInput.value = `${year}-${month}-${day}`;
+      if (horaInput) horaInput.value = `${hours}:${minutes}`;
+    });
+
+    function navigateTo(viewId) {
+      document.getElementById('view-welcome').classList.add('hidden');
+      document.getElementById('view-manutencao').classList.add('hidden');
+      document.getElementById('view-ficha').classList.add('hidden');
+
+      if (viewId === 'ficha') {
+        atualizarVisorStatus();
+      }
+
+      document.getElementById('view-' + viewId).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function atualizarVisorStatus() {
+      const badge = document.getElementById('equipamento-status-badge');
+      if (!badge) return;
+
+      if (statusEquipamento === 'fora_de_ordem') {
+        badge.innerText = "Equipamento fora de ordem";
+        badge.className = "text-xs font-semibold px-2 py-0.5 bg-red-100 text-red-700 rounded-md";
+      } else if (statusEquipamento === 'observacao') {
+        badge.innerText = "Em observação";
+        badge.className = "text-xs font-semibold px-2 py-0.5 bg-amber-100 text-amber-800 rounded-md";
+      } else {
+        badge.innerText = "Funciona satisfatoriamente";
+        badge.className = "text-xs font-semibold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-md";
+      }
+    }
+
+    function handleMaintenanceSubmit(event) {
+      event.preventDefault();
+      
+      const prioridade = document.getElementById('select-prioridade').value;
+
+      // Define a tag de status com base na necessidade informada
+      if (prioridade === 'Normal') {
+        statusEquipamento = 'observacao';
+      } else {
+        // Urgente ou Crítica
+        statusEquipamento = 'fora_de_ordem';
+      }
+
+      showModal(
+        'Solicitação Registrada', 
+        `Sua ordem de serviço foi enviada com sucesso.<br>Status do equipamento atualizado para: <strong>${statusEquipamento === 'observacao' ? 'Em observação' : 'Equipamento fora de ordem'}</strong>.`, 
+        '✓'
+      );
+      
+      // Limpa os campos preenchíveis
+      event.target.querySelectorAll('input[type="checkbox"], input[type="radio"], textarea').forEach(el => {
+        if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+        else el.value = '';
+      });
+
+      setTimeout(() => {
+        closeModal();
+        navigateTo('welcome');
+      }, 2500);
+    }
+
+    function showModal(title, message, symbol) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-message').innerHTML = message;
+      document.getElementById('modal-icon').innerText = symbol;
+      document.getElementById('app-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('app-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
